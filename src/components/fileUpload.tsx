@@ -1,9 +1,9 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { Center, useColorModeValue, Icon } from "@chakra-ui/react";
 import { AiFillFileAdd } from "react-icons/ai";
 
-function FileUpload() {
+const FileUpload = () => {
   const onDrop = useCallback((acceptedFiles: any) => {
     console.log(acceptedFiles);
   }, []);
@@ -35,10 +35,10 @@ function FileUpload() {
       {...getRootProps()}
     >
       <input {...getInputProps()} />
-      <Icon as={AiFillFileAdd} mr={2} />
+      <Icon as={AiFillFileAdd} mr="3" />
       <p>{dropText}</p>
     </Center>
   );
-}
+};
 
 export default FileUpload;

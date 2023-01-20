@@ -1,16 +1,16 @@
 import * as React from "react";
-import { ChakraProvider, Box, VStack, Grid, theme } from "@chakra-ui/react";
-import { ColorModeSwitcher } from "./ColorModeSwitcher";
-import FileUpload from "./components/fileUpload";
+import { ChakraProvider, Box, Center, Grid, theme } from "@chakra-ui/react";
+import FileUpload from "./components/FileUpload";
+import NavBar from "./components/NavBar";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
+    <NavBar />
+    <Box fontSize="xl">
       <Grid minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <VStack>
+        <Center>
           <FileUpload />
-        </VStack>
+        </Center>
       </Grid>
     </Box>
   </ChakraProvider>
