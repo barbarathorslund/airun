@@ -16,9 +16,9 @@ import { AiFillFileImage, AiFillInfoCircle } from "react-icons/ai";
 
 const NavBar = () => {
   return (
-    <Flex alignItems="center">
+    <Flex borderBottom="1px" borderColor="gray.200" alignItems="center">
       <Box ml="1" p="3" fontSize="xl">
-        AIrun
+        AIRun
       </Box>
       <Spacer />
       <Box p="3">
