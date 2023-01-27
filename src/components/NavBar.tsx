@@ -11,7 +11,7 @@ import {
   MenuItem,
   Icon,
 } from "@chakra-ui/react";
-import { HamburgerIcon, AddIcon } from "@chakra-ui/icons";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import { AiFillFileImage, AiFillInfoCircle } from "react-icons/ai";
 
 const NavBar = () => {

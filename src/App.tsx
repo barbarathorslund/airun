@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { ChakraProvider, Box, Center, Flex, theme } from "@chakra-ui/react";
-import { preprocess_image, save_image } from "./model";
+import React, { useState } from "react";
+import { ChakraProvider, Center, Flex, theme } from "@chakra-ui/react";
 import FileUpload from "./components/FileUpload";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -8,15 +7,12 @@ import Footer from "./components/Footer";
 export interface ImageInfo {
   name: string;
   src: string;
-  toUpscale: boolean;
+  downloadReady: boolean;
+  download: string;
 }
 
 export const App = () => {
   const [images, setImages] = useState<ImageInfo[]>([]);
-
-  useEffect(() => {
-    console.log("change");
-  }, [images]);
 
   return (
     <ChakraProvider theme={theme}>
