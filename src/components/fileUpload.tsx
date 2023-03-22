@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ImageInfo } from "../App";
 import { useDropzone } from "react-dropzone";
 import {
@@ -13,7 +13,9 @@ import {
   CloseButton,
 } from "@chakra-ui/react";
 import { AiFillFileAdd } from "react-icons/ai";
-import Upscaler from "upscaler";
+import {createWorkerFactory, useWorker} from '@shopify/react-web-worker';
+
+const createWorker = createWorkerFactory(() => import('../worker'));
 
 const FileUpload = ({
   images,
@@ -22,6 +24,9 @@ const FileUpload = ({
   images: ImageInfo[];
   setImages: React.Dispatch<React.SetStateAction<ImageInfo[]>>;
 }) => {
+  const [progress, setProgress] = useState(0.0);
+  const worker = useWorker(createWorker);
+
   const onDrop = useCallback(
     (acceptedFiles: any) => {
       acceptedFiles.forEach((file: any) => {
@@ -60,17 +65,11 @@ const FileUpload = ({
   };
 
   const runModel = async (image: ImageInfo) => {
-    const upscaler = new Upscaler();
-    upscaler.upscale(image.src).then((upscaledImage: any) => {
-      const updatedImages = images.map((file) => {
-        if (file.src === image.src) {
-          return { ...file, download: upscaledImage, downloadReady: true };
-        } else {
-          return file;
-        }
-      });
-      setImages(updatedImages);
-    });
+      // Set the progress to 0
+      worker.upscaleImage(image.src, (progress: number) => {
+        console.log(progress)
+        setProgress(progress)
+      }).then((upscaledImage) => console.log(upscaledImage))
   };
 
   return (
@@ -110,6 +109,7 @@ const FileUpload = ({
             },
           }}
         >
+          {progress}
           {images.map((image) => (
             <Flex
               key={image.src}
